@@ -136,3 +136,54 @@
     },1100);
   });
 })();
+
+/* SPARROW: scroll reveals + gentle bird parallax.
+   Scoped to .sparrow-band / .sparrow-page only; no effect on other pages. */
+(() => {
+  document.documentElement.classList.add('js');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = Array.from(document.querySelectorAll('.sparrow-band [data-reveal],.sparrow-page [data-reveal]'));
+  if (els.length) {
+    const show = el => el.classList.add('is-visible');
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(show);
+    } else {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { show(entry.target); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(el => io.observe(el));
+      /* Keep a persistent reference: an observer held only by its own
+         callback cycle can be collected before it ever fires. */
+      window.__sparrowRevealIO = io;
+      /* Safety net: reveal anything already in the viewport right away,
+         so above-the-fold content never depends on observer timing. */
+      const vh = window.innerHeight;
+      els.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.92 && r.bottom > 0) show(el);
+      });
+    }
+  }
+  const birds = document.querySelectorAll('.sparrow-band [data-parallax],.sparrow-page [data-parallax]');
+  if (!birds.length || reduce) return;
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const vh = window.innerHeight;
+    birds.forEach(b => {
+      const r = b.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      const p = (r.top + r.height / 2 - vh / 2) / vh;
+      const y = Math.max(-1, Math.min(1, p)) * 26;
+      b.style.transform = 'translate3d(0,' + y.toFixed(1) + 'px,0)';
+    });
+  };
+  const onScroll = () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
