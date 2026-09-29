@@ -1785,3 +1785,17 @@ button:not(:disabled):active,
 .btn:disabled{cursor:wait;opacity:.65;transform:none}
 .contact-option .icon svg[fill=currentColor]{fill:currentColor;stroke:none}
 @media(max-width:480px){.contact-form{grid-template-columns:minmax(0,1fr)}}
+
+/* Timeline: single-column connected rail. This block is intentionally last in
+   the file so it overrides the earlier conflicting .timeline/.milestone rules.
+   Markup: .timeline > article.milestone > span.status + h3 + p */
+.timeline{position:relative;display:flex;flex-direction:column;margin-top:22px;padding:4px 0 4px 38px}
+.timeline:before{content:"";position:absolute;left:11px;right:auto;top:12px;bottom:12px;width:2px;background:linear-gradient(180deg,#4284ff,rgba(71,117,194,.25))}
+.milestone{position:relative;min-width:0;padding:0 0 26px}
+.milestone:last-child{padding-bottom:6px}
+.milestone:before{content:"";position:absolute;left:-32px;top:5px;width:13px;height:13px;border:1px solid #6ca0ff;border-radius:50%;background:#0c1a32;box-shadow:0 0 0 4px rgba(75,131,255,.13),0 0 15px rgba(74,136,255,.52)}
+.milestone:last-child:before{background:#62a0ff;box-shadow:0 0 0 4px rgba(75,131,255,.18),0 0 20px rgba(74,136,255,.85)}
+.milestone .status{margin:0 0 10px}
+.milestone h3{margin:0 0 8px;font-size:20px;color:#f0f4fc}
+.milestone p{margin:0;max-width:640px;color:#aebbd0;font-size:13px;line-height:1.6}
+@media(max-width:640px){.timeline{padding-left:32px;margin-top:18px}.milestone:before{left:-26px}.milestone h3{font-size:17px}.milestone p{font-size:12px}}
