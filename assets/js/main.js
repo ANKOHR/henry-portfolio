@@ -11,6 +11,33 @@
       if(event.target.closest('a')){nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');}
     });
   }
+  const contactForm=document.querySelector('[data-contact-form]');
+  if(contactForm)contactForm.addEventListener('submit',async event=>{
+    event.preventDefault();
+    const button=contactForm.querySelector('[type="submit"]');
+    const status=contactForm.querySelector('[data-form-status]');
+    if(button.disabled||!contactForm.reportValidity())return;
+    button.disabled=true;contactForm.setAttribute('aria-busy','true');
+    status.textContent='Sending message...';status.removeAttribute('data-state');
+    const controller=new AbortController();
+    const timeout=window.setTimeout(()=>controller.abort(),20000);
+    try{
+      const response=await fetch(contactForm.action,{
+        method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({...Object.fromEntries(new FormData(contactForm)),_subject:'Portfolio message'}),
+        signal:controller.signal
+      });
+      const result=await response.json();
+      if(!response.ok||(result.success!==true&&result.success!=='true'))throw new Error('Message not accepted');
+      status.textContent='Message sent. Thank you for getting in touch.';status.dataset.state='success';
+      contactForm.reset();
+    }catch(error){
+      status.textContent='Could not send your message. Please try again, or contact me by email or WhatsApp.';
+      status.dataset.state='error';
+    }finally{
+      window.clearTimeout(timeout);button.disabled=false;contactForm.removeAttribute('aria-busy');
+    }
+  });
   const workCards=[...document.querySelectorAll('[data-work-card]')];
   const workButtons=[...document.querySelectorAll('[data-work-filter]')];
   const sortSelect=document.querySelector('[data-work-sort]');

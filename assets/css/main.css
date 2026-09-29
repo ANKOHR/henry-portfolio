@@ -1769,3 +1769,19 @@ button:not(:disabled):active,
     font-size: 14px;
   }
 }
+
+/* Repair the timeline using the milestone markup present on About. */
+.timeline{grid-template-columns:minmax(0,1fr);gap:24px}
+.timeline:before{left:15px;right:auto;top:8px;bottom:8px;width:2px;height:auto;background:linear-gradient(180deg,#4284ff,rgba(71,117,194,.35))}
+.milestone{padding:0 0 0 42px;min-width:0}
+.milestone:before{left:9px;top:5px;width:14px;height:14px}
+.milestone .status{margin-bottom:10px}
+.milestone h3{margin:0 0 8px;font-size:20px}
+.milestone p{font-size:13px;line-height:1.6}
+.contact-form{grid-template-columns:repeat(2,minmax(0,1fr))}
+.form-status{margin:10px 0 0;color:var(--muted);font-size:13px;min-height:1.55em}
+.form-status[data-state=success]{color:var(--green)}
+.form-status[data-state=error]{color:#ffb4b4}
+.btn:disabled{cursor:wait;opacity:.65;transform:none}
+.contact-option .icon svg[fill=currentColor]{fill:currentColor;stroke:none}
+@media(max-width:480px){.contact-form{grid-template-columns:minmax(0,1fr)}}
