@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AQE crawls an application over HTTP, maps pages and forms, derives request tests, executes them, and produces reproducible reports with the requests behind each finding.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>Autonomous QA Engineer | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Commercial tools / Technical essay</div>
+        <span class="status status-complete">The repository&#39;s demo apps are synthetic. The tool can issue HTTP requests to a supplied staging endpoint, but these tests validate the returned HTTP and HTML data rather than browser rendering or visual behavior. tests</span>
+        <h1>Autonomous QA Engineer</h1>
+        <p class="lead">AQE crawls an application over HTTP, maps pages and forms, derives request tests, executes them, and produces reproducible reports with the requests behind each finding.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Design<br>Build<br>Tests<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Problem</div><h2>The problem</h2></div></div><p>A list of URLs alone does not capture the form fields, links, or required page elements that a request test should check. AQE builds a small site map and uses discovered page structure to create a test catalogue that can be run against a fixture app or an HTTP endpoint.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Design</div><h2>Design</h2></div></div><p>The explorer fetches pages and uses Python&#39;s HTMLParser to record same-origin links, form methods and fields, and declared required elements. The generator turns that map into cases such as field validation, required-element checks, and link requests. The executor sends HTTP requests and evaluates declared status, content, and timing conditions. Reporting groups failed outcomes and includes the exact request details needed to reproduce them.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Engineering decisions</div><h2>Engineering decisions</h2></div></div><p>The boundary is HTTP, not a browser automation stack. Page snapshots are saved as HTML bytes; AQE does not execute JavaScript, render a visual page, drive a browser, or take screenshots. Fixture apps include a clean control and a buggy version with planted behavior, so output can be checked against known expectations without connecting to a live service.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">What the tests verify</div><h2>What the tests verify</h2></div></div><p>Tests check that exploration records the fixture pages, forms, and broken link; depth limits and invalid base URLs; catalogue generation from required elements and edge inputs; deterministic generation; and execution against buggy and clean fixtures. They verify that the expected planted findings have concrete request evidence and that reports disclose the HTTP-only boundary.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Scope and evidence</div><h2>Scope</h2></div></div><p></p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Repository</div><h2>Read the project source.</h2><p>This essay describes the checked-in design and test coverage.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/15|autonomous-qa-engineer" target="_blank" rel="noreferrer">GitHub repository &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

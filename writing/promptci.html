@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PromptCI detects changed prompt content, evaluates only linked synthetic suites, compares deterministic fixture results and cost and latency estimates, then applies named release rules.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>PromptCI | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Infrastructure / Technical essay</div>
+        <span class="status status-complete">PromptCI demonstrates local prompt change management with synthetic cases and providers. It does not call a model API or measure live provider latency, token use, or cost. tests</span>
+        <h1>PromptCI</h1>
+        <p class="lead">PromptCI detects changed prompt content, evaluates only linked synthetic suites, compares deterministic fixture results and cost and latency estimates, then applies named release rules.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Design<br>Build<br>Tests<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Problem</div><h2>The problem</h2></div></div><p>Changing a prompt can alter output quality, runtime estimates, and which release checks matter. PromptCI makes prompt changes the trigger for a local evaluation pipeline and stores a candidate separately from the last accepted release so a failed gate does not become the new baseline.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Design</div><h2>Design</h2></div></div><p>Prompts are canonicalized and hashed. Prompt versions and suite links live in JSON project files, alongside deterministic fixture providers and scoring data. A run compares current hashes with the release record, selects suites linked to changed prompts, and writes candidate results and a per-case diff. Named gate rules turn score, cost, and latency comparisons into a release decision. Accepting a candidate updates the release record; a failed gate preserves the existing record.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Engineering decisions</div><h2>Engineering decisions</h2></div></div><p>The pipeline skips evaluation when no prompt hash changed, while still emitting a candidate record that explains the no-change state. Fixture providers run locally and expose declared price and latency profiles; they make no provider request. This makes the release calculation repeatable and lets tests hand-check the comparison formulas without credentials or network dependencies.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">What the tests verify</div><h2>What the tests verify</h2></div></div><p>The suite checks deterministic fixtures, changed-prompt trigger behavior, affected-suite selection, attribution for planted regressions, hand-calculated cost and latency deltas, release gate decisions, report content, and CLI flows. It also checks that accepted release state is not changed by a failed candidate and that the synthetic provider boundary is disclosed.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Scope and evidence</div><h2>Scope</h2></div></div><p></p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Repository</div><h2>Read the project source.</h2><p>This essay describes the checked-in design and test coverage.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/15|promptci" target="_blank" rel="noreferrer">GitHub repository &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SOPC compiles procedures written in its documented Markdown grammar into a versioned plan IR that can be verified, graphed, contract-tested, and simulated.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>SOP to Agent Compiler | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Infrastructure / Technical essay</div>
+        <span class="status status-complete">The repository describes a supported SOPC Markdown format, not arbitrary natural-language procedures. The executor uses deterministic simulated adapters and does not call real tools. Generated contract tests verify the plan contract and simulator behavior. tests</span>
+        <h1>SOP to Agent Compiler</h1>
+        <p class="lead">SOPC compiles procedures written in its documented Markdown grammar into a versioned plan IR that can be verified, graphed, contract-tested, and simulated.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Design<br>Build<br>Tests<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Problem</div><h2>The problem</h2></div></div><p>A procedure document can describe a workflow without making its control flow mechanically checkable. Branch targets can be missing, actions can be reachable without review, and retry behavior can be unclear. SOPC makes the input contract explicit: a source file declares the steps, metadata, permissions, and control-flow targets in a supported grammar.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Design</div><h2>Design</h2></div></div><p>The parser converts the grammar into typed Step and Plan objects. The model serializes a versioned JSON intermediate representation. A separate verifier checks references, decision conditions, retry and checkpoint rules, reachability, and whether consequential actions are guarded on every path. The CLI can then emit a deterministic SVG graph, generate a pytest contract module, or run the plan with a simulated executor that appends audit events.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Engineering decisions</div><h2>Engineering decisions</h2></div></div><p>Compilation is grammar-based, not open-ended language understanding. Decision expressions are recorded as text, while a run receives explicit boolean results keyed by that text. At a checkpoint, the simulator pauses until it receives an approve, reject, or edit decision; rejection and edits need a reason. Retries follow the plan&#39;s declared attempt and backoff policy. This keeps simulation inputs visible and repeatable.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">What the tests verify</div><h2>What the tests verify</h2></div></div><p>The suite checks valid and malformed source parsing with file, line, and rule errors; stable IR serialization; named schema failures; and verifier rules for references, retries, conditions, checkpoints, and consequential actions on every route. Executor cases cover pause, approval, rejection, edits, retries, permission denial, and explicit condition results. Separate checks compare generated graphs and compilation output across repeated runs.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Scope and evidence</div><h2>Scope</h2></div></div><p></p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Repository</div><h2>Read the project source.</h2><p>This essay describes the checked-in design and test coverage.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/33|sop-agent-compiler" target="_blank" rel="noreferrer">GitHub repository &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

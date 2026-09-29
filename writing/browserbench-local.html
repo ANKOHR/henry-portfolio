@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BrowserBench Local evaluates scripted agents against a static synthetic site using a DOM-backed simulator, deterministic task rules, partial-credit scoring, and evidence reports.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>BrowserBench Local | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Evaluation / Technical essay</div>
+        <span class="status status-complete">BrowserBench does not visit or grade the live web. The agent is scripted, and the simulator does not provide real browser automation or JavaScript execution. Its adversarial send controls are local fixture state only. tests</span>
+        <h1>BrowserBench Local</h1>
+        <p class="lead">BrowserBench Local evaluates scripted agents against a static synthetic site using a DOM-backed simulator, deterministic task rules, partial-credit scoring, and evidence reports.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Design<br>Build<br>Tests<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Problem</div><h2>The problem</h2></div></div><p>Browser tasks combine navigation, data entry, filtering, uploads, and decisions about conflicting or untrusted page content. A useful test fixture needs to preserve those state changes and score individual requirements while ensuring adversarial examples cannot trigger a real send or upload.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Design</div><h2>Design</h2></div></div><p>Task JSON declares a starting page, available actions, criteria, weights, and expected evidence. The simulator parses fixture HTML into a small element and page-state model, then applies actions such as fill, click, search, filter, and navigation. It records action history and visited pages. Scoring applies the task&#39;s named rules criterion by criterion and awards partial credit for satisfied parts. The report includes per-task scores and evidence.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Engineering decisions</div><h2>Engineering decisions</h2></div></div><p>The environment is deliberately static and synthetic. The benchmark represents browser state in its own DOM-backed simulator instead of controlling a browser or executing site JavaScript. Task files plant cases for form handling, search, uploads, ambiguous instructions, conflicting facts, and prompt injection. The scorer checks resulting local state, including whether a simulated send remained inactive.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">What the tests verify</div><h2>What the tests verify</h2></div></div><p>Tests validate task schemas and scoring weights, fixture page safety and labels, action effects in the simulator, form validation, navigation state, upload confirmation, partial-credit arithmetic, and deterministic reports. Adversarial tasks verify that the scripted agent records conflicting sources or asks for clarification and leaves its local send state inactive. CLI tests also cover serving the fixture site on loopback.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Scope and evidence</div><h2>Scope</h2></div></div><p></p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Repository</div><h2>Read the project source.</h2><p>This essay describes the checked-in design and test coverage.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/40|browserbench-local" target="_blank" rel="noreferrer">GitHub repository &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

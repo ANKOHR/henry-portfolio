@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ExperimentOS is a local CLI for seeded synthetic datasets, formula-based metric runs, checkpoints, hypotheses, findings, and reports.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>ExperimentOS | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Research / Technical essay</div>
+        <span class="status status-complete">The project emits synthetic data and simulated metrics. It does not load model weights, train a model, evaluate a real system, or report empirical research results. tests</span>
+        <h1>ExperimentOS</h1>
+        <p class="lead">ExperimentOS is a local CLI for seeded synthetic datasets, formula-based metric runs, checkpoints, hypotheses, findings, and reports.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Design<br>Build<br>Tests<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Problem</div><h2>The problem</h2></div></div><p>A small research workflow needs to preserve which dataset and configuration produced a metric series, allow a run to resume, and connect interpretations back to evidence. ExperimentOS stores those pieces locally so a synthetic experiment can be reconstructed from files rather than remembered from a terminal session.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Design</div><h2>Design</h2></div></div><p>Dataset registration records a seed, generated CSV, schema details, and checksum. A run config identifies the dataset, simulator profile, step count, and seed. The simulator computes a closed-form curve and uses a seeded random generator for declared noise. Metrics are appended as JSONL. Checkpoints capture run configuration, metrics, and random generator state; resume continues from that saved state. Hypotheses and findings are separate records that cite run IDs, and the CLI compares runs and renders reports.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Engineering decisions</div><h2>Engineering decisions</h2></div></div><p>The simulator exposes exponential decay, plateau-then-drop, and linear profiles rather than training a model. Random state is serialized in the checkpoint so resumed output can match an uninterrupted run. Run IDs and timestamps identify stored work but are kept outside the deterministic metric payload. A finding that lacks a valid run citation is rejected, which preserves a machine-checkable link from interpretation to data.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">What the tests verify</div><h2>What the tests verify</h2></div></div><p>The suite checks seed-based dataset reproducibility and checksums, hand-calculated points for each curve family, byte-identical metric logs for repeated configs, checkpoint resume equivalence, and the ability to extend a resumed run. CLI cases cover dataset, run, checkpoint, hypothesis, finding, comparison, and report flows, including rejection of uncited findings.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Scope and evidence</div><h2>Scope</h2></div></div><p></p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Repository</div><h2>Read the project source.</h2><p>This essay describes the checked-in design and test coverage.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/32|experimentos" target="_blank" rel="noreferrer">GitHub repository &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

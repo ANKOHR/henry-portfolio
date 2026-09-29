@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ResearchReplicator extracts sourced setup fields from synthetic paper fixtures, creates a reproduction plan, tracks configuration edits, and compares deterministic CPU-emitted metrics with declared targets.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>ResearchReplicator | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Research engineering / Technical essay</div>
+        <span class="status status-complete">The checked-in papers and repositories are synthetic. The metric emitter does not train a model or reproduce real published results. The repository explicitly states that it does not process real papers or run GPU training. tests</span>
+        <h1>ResearchReplicator</h1>
+        <p class="lead">ResearchReplicator extracts sourced setup fields from synthetic paper fixtures, creates a reproduction plan, tracks configuration edits, and compares deterministic CPU-emitted metrics with declared targets.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Design<br>Build<br>Tests<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Problem</div><h2>The problem</h2></div></div><p>A reproduction plan should distinguish what a source says from what is missing. Filling gaps with plausible defaults makes the plan look complete while weakening its provenance. ResearchReplicator treats extraction, planning, configuration history, and comparison as separate steps over declared fixture documents.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Design</div><h2>Design</h2></div></div><p>The Markdown extractor finds setup fields and records where each value came from. Missing fields remain typed as unknown in the setup record and plan. The plan cites extracted values rather than inventing a full experiment. The tracker assigns an identity to each configuration and records JSON-pointer changes. A run can invoke only the synthetic repository emitted by the fixture command after checking its manifest and script hash; the metric emitter is a CPU stand-in. Comparison checks observed values against declared targets and tolerances, and the report presents the provenance and comparison state.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Engineering decisions</div><h2>Engineering decisions</h2></div></div><p>Unknown values stay unknown, including an undeclared tolerance or unit mismatch. Config IDs separate revisions, and the tracked diff explains why a new configuration differs. Before execution, the workflow verifies that the fixture script has not changed, then runs it with CPU-only flags. These choices make the demo auditable while keeping its evidence boundary explicit.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">What the tests verify</div><h2>What the tests verify</h2></div></div><p>Tests check source citations for extracted fields, typed empty extraction when a fixture lacks an experiments section, and that absent hyperparameters remain unknown. Other cases cover ordered plans, deterministic fixture and plan output, configuration diffs, rejection of unmarked repositories or changed fixture scripts, tolerance acceptance and rejection, unknown comparison units, and the extract-to-report CLI path.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Scope and evidence</div><h2>Scope</h2></div></div><p></p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Repository</div><h2>Read the project source.</h2><p>This essay describes the checked-in design and test coverage.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/22|research-replicator" target="_blank" rel="noreferrer">GitHub repository &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

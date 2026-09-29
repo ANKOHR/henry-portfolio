@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MemoryLab compares six deterministic memory policies on the same synthetic recall episodes and reports task success, token use, retrieval accuracy, and fabricated recall counts.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>MemoryLab | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Research / Technical essay</div>
+        <span class="status status-complete">MemoryLab is a deterministic benchmark harness over synthetic episodes. It measures its defined fixture tasks and policies; it does not evaluate an LLM or establish a general ranking of memory architectures. tests</span>
+        <h1>MemoryLab</h1>
+        <p class="lead">MemoryLab compares six deterministic memory policies on the same synthetic recall episodes and reports task success, token use, retrieval accuracy, and fabricated recall counts.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Design<br>Build<br>Tests<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Problem</div><h2>The problem</h2></div></div><p>Memory designs trade context size against retrieval and correctness. To compare them, MemoryLab gives each policy the same fixed episode stream and asks it the same recall queries under a declared token budget. The benchmark reports several outcomes so a compact context is not judged only by how much it stores.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Design</div><h2>Design</h2></div></div><p>The six policies are full context, lossy summary, token-overlap retrieval, episodic memory, structured state, and a hybrid. Each produces context items for the query. A shared budget selector admits items within the whitespace-token budget. The runner resolves planted facts and records answers, source fact IDs, context tokens, and query tokens. Metrics summarize correct answers and abstentions, retrieval accuracy on answerable questions, and values that differ from the active planted fact.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Engineering decisions</div><h2>Engineering decisions</h2></div></div><p>Fact histories have explicit set, correct, and expire operations, which gives the structured policy a defined state transition model. Retrieval is deterministic: token overlap uses normalized words and a stable ranking, while the hybrid combines policy outputs under the same budget. Token accounting is intentionally simple and hand-checkable. The fixture suite uses no random generator or model call.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">What the tests verify</div><h2>What the tests verify</h2></div></div><p>Repository tests cover fixture loading, each policy&#39;s selection and answer behavior, runner outputs and metrics, token budgeting, corruption counts, and command and report behavior. Assertions compare the policy outputs and aggregate metrics against planted episode facts, so they test the implementation&#39;s fixture rules rather than model quality.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Scope and evidence</div><h2>Scope</h2></div></div><p></p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Repository</div><h2>Read the project source.</h2><p>This essay describes the checked-in design and test coverage.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/24|memorylab" target="_blank" rel="noreferrer">GitHub repository &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

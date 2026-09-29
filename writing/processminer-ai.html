@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ProcessMiner AI mines CSV event logs with deterministic rules to reconstruct observed transitions, measure stage and queue time, and rank bottlenecks and automation candidates.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>ProcessMiner AI | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Commercial tools / Technical essay</div>
+        <span class="status status-complete">ProcessMiner is a CPU-only, rule-based process-mining demonstration. Its bundled event logs are fictional and its outputs make no claim about real employees or business operations. tests</span>
+        <h1>ProcessMiner AI</h1>
+        <p class="lead">ProcessMiner AI mines CSV event logs with deterministic rules to reconstruct observed transitions, measure stage and queue time, and rank bottlenecks and automation candidates.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Design<br>Build<br>Tests<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Problem</div><h2>The problem</h2></div></div><p>A business process can be present in an event log without being documented as a flow. ProcessMiner takes timestamped activity records grouped by case and turns their observed order and timing into evidence that can be inspected before proposing where automation might fit.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Design</div><h2>Design</h2></div></div><p>The CSV parser converts valid rows into typed events and reports malformed values with field context. The miner orders activities within each case and builds an observed process graph with transitions and duration data. Analysis derives stage medians, wait time, queue counts, and bottleneck flags. A separate target scorer applies the published rule set to the graph, returns ranked candidates, and exposes the score inputs in JSON and Markdown or HTML reports.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Engineering decisions</div><h2>Engineering decisions</h2></div></div><p>The implementation uses explicit thresholds and formulas rather than a learned model. Stage timing and queue evidence are kept as separate signals so a long step and a growing queue do not collapse into one unexplained score. The bundled clean control log helps distinguish the planted bottleneck fixture from data that should produce no flags. All example records are labelled synthetic.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">What the tests verify</div><h2>What the tests verify</h2></div></div><p>Tests check deterministic fixture generation, ordered graph edges, hand-computed medians, queue-derived bottlenecks, a control log with no flags, candidate ranking and score inputs, named malformed-row errors, stable reports, and command-line flows. These assertions check the documented rules on fixture data; they do not establish findings about a real company.</p></section>
+<section class="section"><div class="section-head"><div><div class="section-label">Scope and evidence</div><h2>Scope</h2></div></div><p></p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Repository</div><h2>Read the project source.</h2><p>This essay describes the checked-in design and test coverage.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/23|processminer-ai" target="_blank" rel="noreferrer">GitHub repository &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
