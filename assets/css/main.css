@@ -450,7 +450,7 @@ pre{margin-top:12px;padding:16px;border-radius:7px;font-size:11px;line-height:1.
 .writing-layout{grid-template-columns:minmax(0,1fr) 285px;gap:20px}
 .article-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
 .article-card{padding:18px;border-color:rgba(149,176,210,.22);border-radius:13px;background:rgba(10,17,28,.87)}
-.article-art{height:108px;margin-bottom:14px;border-radius:8px;background:radial-gradient(ellipse at 50% 100%,rgba(22,78,178,.33),transparent 70%),#080e17}
+.article-art{align-self:stretch;height:108px;margin-bottom:14px;border-radius:8px;background:radial-gradient(ellipse at 50% 100%,rgba(22,78,178,.33),transparent 70%),#080e17}
 .article-card .section-label{margin-bottom:10px;font-size:10px}
 .article-card h3{font-size:19px}
 .article-card p{min-height:60px;margin-bottom:13px;color:#B0BBCC;font-size:13px;line-height:1.54}
