@@ -6,8 +6,9 @@
   <meta name="description" content="Sparrow designs systems that remove friction from everyday life and work. The product is time.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <title>Sparrow | A clearer way to live and work</title>
+  <script src="assets/js/sparrow-theme.js"></script>
   <link rel="stylesheet" href="assets/css/main.css">
-</head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;650;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/sparrow.css"></head>
 <body class="sparrow-page">
 
 <header class="site-header">
@@ -17,7 +18,7 @@
       <nav class="nav-links" aria-label="Main navigation">
         <a href="work.html">Work</a><a href="lab.html">Lab</a><a href="sparrow.html" aria-current="page">Sparrow</a><a href="pages/services/index.html">Services</a><a href="writing.html">Writing</a><a href="about.html">About</a><a href="contact.html">Contact</a>
       </nav>
-      <span class="nav-spark" aria-hidden="true"></span>
+      <button class="sp-theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" hidden>Light mode</button>
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -28,11 +29,12 @@
 <main class="shell">
 
   <section class="sp-hero">
+    <div class="sp-lockup"><svg class="sp-mark" viewBox="0 0 128 128" fill="none" stroke="currentColor" stroke-width="19" stroke-linecap="round" aria-hidden="true"><path d="M17 42L30 56M40 17L72 49M24 90L51 68M30 118L114 52"/></svg><div><span class="sp-wordmark">SPARROW</span><span class="sp-tagline">AUTOMATION | AGENTS | REAL WORK</span></div></div>
     <p class="sp-eyebrow" data-reveal>SPARROW · An emerging venture</p>
     <h1 data-reveal>A clearer tomorrow.</h1>
     <p class="sp-hero-intro" data-reveal>Sparrow is an emerging venture built on a simple observation: most wasted time is not caused by a lack of effort. It is caused by badly designed systems. We find the friction in how people live and work, then redesign the system so the time comes back.</p>
     <figure class="sp-hero-bird" data-reveal>
-      <img class="sp-bird" data-parallax src="assets/img/sparrow-mark.png" alt="Sparrow mark, an abstract black bird in flight" width="900" height="900">
+      <svg class="sp-mark" viewBox="0 0 128 128" fill="none" stroke="currentColor" stroke-width="19" stroke-linecap="round" aria-hidden="true"><path d="M17 42L30 56M40 17L72 49M24 90L51 68M30 118L114 52"/></svg>
     </figure>
   </section>
 
