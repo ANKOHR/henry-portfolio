@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A first-hand build note on training a 124M-parameter TinyStories GPT for 4,000 steps on a GTX 1660 SUPER with 6GB of VRAM.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>Training a small GPT on a 1660 SUPER | Henry Williams</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="../index.html">Henry Williams</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html" aria-current="page">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+        </nav>
+        <span class="nav-spark" aria-hidden="true"></span>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero project-hero">
+      <div class="hero-copy">
+        <a class="back-link" href="../writing.html">Back to Writing</a>
+        <div class="eyebrow">Machine learning / Technical essay</div>
+        <span class="status status-complete">Build notes · 4,000 training steps</span>
+        <h1>Training a small GPT on a 1660 SUPER</h1>
+        <p class="lead">I trained a 123.85M-parameter GPT-style model on TinyStories from random initialization, using a single GTX 1660 SUPER with 6GB of VRAM. The run completed 4,000 optimizer steps. The useful result was not a new capability claim; it was a working end-to-end training system and a much clearer view of what this hardware permits.</p>
+      </div>
+      <div class="hero-art" aria-label="Abstract glowing glass panels">
+        <div class="art-floor"></div><div class="glass-structure"><i class="slab slab-a"></i><i class="slab slab-b"></i><i class="slab slab-c"></i><i class="slab slab-d"></i><i class="slab slab-e"></i></div><div class="art-labels">Data<br>Training<br>Recovery<br>Evidence</div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Aim</div><h2>A systems exercise, not a capability claim</h2></div></div><p>The goal was to take a small GPT from raw text through tokenization, training, checkpointing, recovery, validation, and sampling. TinyStories is a compact dataset of short stories, which makes it a practical place to observe whether a small model learns the training distribution. This run covered only part of the training corpus, so it is a learning exercise rather than evidence of a useful general-purpose model.</p><p>I implemented the model and training loop with PyTorch primitives rather than relying on a pretrained model or a trainer abstraction. That made the details visible: batch construction, loss computation, optimizer updates, checkpoint contents, and the state that must survive a restart.</p></section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Model and data</div><h2>Small model, large sequence of decisions</h2></div></div><p>The network is a decoder-only transformer with 12 layers, 12 attention heads, a 768-wide embedding, and a context length of 256 tokens. It uses GPT-2 BPE token IDs, learned positional embeddings, pre-normalized blocks, causal attention, and a four-times-width GELU feed-forward layer. The token embedding is tied to the output projection. The configuration contains 123,849,984 parameters.</p><p>The tokenized TinyStories files are memory-mapped, so the full training corpus does not need to reside in system memory. Each optimizer update covers 65,536 tokens: eight sequences of 256 tokens per microbatch, accumulated over 32 microsteps. Mixed precision keeps the activations within the card’s memory budget, while the optimizer state and master weights still consume substantial space.</p></section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Hardware constraint</div><h2>Making 6GB work</h2></div></div><p>The run used one NVIDIA GTX 1660 SUPER with 6GB of VRAM. The source notes identify it as a Turing card without Tensor Cores. The configuration uses FP16 mixed precision and an eight-sequence microbatch. Those are practical constraints, not footnotes: they determine how much work fits in one pass and how many accumulation steps are needed before an optimizer update.</p><p>Checkpoints were written every 200 steps, with evaluation at the same interval. The checkpoint design preserves model and optimizer progress along with scheduler and random-number state, so a restarted process can continue from saved state instead of beginning again. The run did stop once with exit code 1 at step 430; the earlier notes say no traceback was preserved, so the cause remains unknown. Resuming from the available checkpoint let the run continue to completion.</p></section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Run result</div><h2>What the completed run recorded</h2></div></div><p>The final run record reports 4,000 steps and 262,144,000 tokens seen. It reports a final training loss of 2.271 and a final validation loss of 2.347. The best validation loss recorded in the result file was 2.307. These are the run’s logged cross-entropy measurements; they say that the model fit the TinyStories next-token objective, not that it produces consistently coherent stories.</p><p>The training log’s last step entry gives a per-step smoothed training loss of 2.287 and an evaluation validation loss of 2.357. The result file summarizes the final run with slightly different aggregate values, so I use its final loss fields above and keep the distinction clear. No generated samples were saved in the run directory I reviewed, so I’m not making a claim about sample quality here.</p></section>
+    <section class="section"><div class="section-head"><div><div class="section-label">What I learned</div><h2>Recovery and instrumentation matter</h2></div></div><p>The first interruption made checkpoint recovery the most consequential part of the project. A checkpoint is useful only if it contains enough state to continue faithfully. The training code saves the optimizer and scheduler state as well as random-number state; on resume, training continued from saved progress. The incident also exposed a gap: without a termination journal or traceback, the reason for the exit cannot be diagnosed after the fact.</p><p>Per-step JSONL logging made the long run inspectable after it finished. Loss, throughput, tokens seen, and estimated remaining time let me compare phases of the run without relying on memory or a terminal still being open. The notes also record duplicate step numbers around the resumed section because the resumed attempt appended to the same log. That does not stop training, but it is a reminder to identify run attempts in the log format.</p><p>For the next experiment, I would validate the learning-rate range on a shorter run, track GPU memory and temperature in the training log itself, and add an explicit test comparing an interrupted-and-resumed run with an uninterrupted one. Those changes would make failures easier to explain and the recovery guarantee easier to verify.</p></section>
+    <section class="section"><div class="section-head"><div><div class="section-label">Scope</div><h2>What this does and does not establish</h2></div></div><p>This experiment establishes that the training pipeline completed a 4,000-step run for this configuration on the specified single GPU, with final losses recorded in the run artifacts. It does not establish that the model is useful, that its generations are reliably coherent, or that the training setup scales efficiently beyond this machine. The run covered 262.1 million tokens against a training corpus of about 482.1 million tokens, so it was not a full pass over the corpus.</p><p>The most reusable outcome for me is the infrastructure: an understandable model implementation, memory-mapped data, mixed-precision training, resumable checkpoints, and logs that preserve the evidence behind the final numbers.</p></section>
+    <section class="cta-band">
+      <div class="cta-copy"><div class="section-label">Project</div><h2>Inspect the training project.</h2><p>The configuration, training logs, checkpoints, and result record live with the TrainLab project.</p></div>
+      <div class="cta-actions"><a class="btn btn-secondary" href="../writing.html">More writing</a><a class="btn btn-primary" href="https://github.com/ANKOHR/trainlab" target="_blank" rel="noreferrer">TrainLab on GitHub &rarr;</a></div>
+    </section>
+  </main>
+  <footer class="shell site-footer">
+    <span>Henry Williams · London, UK</span>
+    <div class="footer-links"><a href="../work.html">Work</a><a href="../lab.html">Lab</a><a href="../pages/services/index.html">Services</a><a href="../writing.html">Writing</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></div>
+    <span>Built with care.</span>
+  </footer>
+  <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
